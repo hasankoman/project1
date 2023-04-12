@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/note.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 
 class EditNoteView extends StatefulWidget {
   List copy = [];
@@ -138,7 +139,7 @@ class _EditNoteViewState extends State {
                                     ],
                                   ),
                                   onPressed: () {
-                                    Share.share(note.content);
+                                    // Share.share(note.content);
                                   },
                                 ),
                               ),
@@ -182,9 +183,8 @@ class _EditNoteViewState extends State {
                                   onPressed: () {
                                     formKey.currentState?.save();
                                     setState(() {
-                                      // notes.removeWhere(
-                                      //     (item) => item.id == note.id);
-                                      notes.remove(note);
+                                      notes.removeWhere(
+                                          (item) => item.id == note.id);
                                     });
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
@@ -312,14 +312,19 @@ class _EditNoteViewState extends State {
                   note.typeId = _currentColorIndex;
                   note.title = titleController.text;
                   note.content = contentController.text;
-                  print(note.content);
+                  var RandomID = Random().nextInt(90000000) + 10000;
                   if (isDuplicate) {
-                    Note copiedNote = Note(
-                      titleController.text,
-                      contentController.text,
-                      _currentColorIndex,
-                    );
+                    Note copiedNote = Note.withId(
+                        RandomID, note.content, note.title, note.typeId);
                     notes.add(copiedNote);
+                  } else {
+                    for (var i = 0; i < notes.length; i++) {
+                      if (notes[i].id == note.id) {
+                        notes[i].content = note.content;
+                        notes[i].title = note.title;
+                        notes[i].typeId = note.typeId;
+                      }
+                    }
                   }
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Your note successfully updated.')));

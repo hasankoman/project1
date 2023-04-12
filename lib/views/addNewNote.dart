@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:share_plus/share_plus.dart';
+import 'dart:math';
+// import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/NoteView.dart';
 import 'package:flutter_application_1/models/note.dart';
@@ -114,7 +115,7 @@ class _AddNewNoteState extends State {
                                     ],
                                   ),
                                   onPressed: () {
-                                    Share.share(note.content);
+                                    // Share.share(note.content);
                                   },
                                 ),
                               ),
@@ -272,9 +273,13 @@ class _AddNewNoteState extends State {
                 if (chechker1 && chechker2) {
                   formKey.currentState?.save();
                   note.typeId = _currentColorIndex;
+                  var RandomID = Random().nextInt(90000000) + 10000;
+
                   if (isDuplicate) {
-                    notes.add(note);
-                    notes.add(note);
+                    notes.add(Note.withId(
+                        RandomID + 1, note.content, note.title, note.typeId));
+                    notes.add(Note.withId(
+                        RandomID, note.content, note.title, note.typeId));
                   } else {
                     notes.add(note);
                   }
