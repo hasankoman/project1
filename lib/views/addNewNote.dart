@@ -16,6 +16,8 @@ class AddNewNote extends StatefulWidget {
 }
 
 class _AddNewNoteState extends State {
+  var chechker1 = false;
+  var chechker2 = false;
   var note = Note.noInfo();
   var isDuplicate = false;
   int _currentColorIndex = 7;
@@ -267,19 +269,23 @@ class _AddNewNoteState extends State {
               icon: const Icon(Icons.check),
               tooltip: 'Add note',
               onPressed: () {
-                formKey.currentState?.save();
-                note.typeId = _currentColorIndex;
-                if (isDuplicate) {
-                  notes.add(note);
-                  notes.add(note);
+                if (chechker1 && chechker2) {
+                  formKey.currentState?.save();
+                  note.typeId = _currentColorIndex;
+                  if (isDuplicate) {
+                    notes.add(note);
+                    notes.add(note);
+                  } else {
+                    notes.add(note);
+                  }
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Your note successfully added.')));
+                  Timer(const Duration(milliseconds: 750),
+                      () => Navigator.pop(context));
                 } else {
-                  notes.add(note);
-                  print(note.content);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Your note could not be added.')));
                 }
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Your note successfully added.')));
-                Timer(const Duration(milliseconds: 750),
-                    () => Navigator.pop(context));
               },
             ),
           ],
@@ -294,6 +300,14 @@ class _AddNewNoteState extends State {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.always,
+                        validator: (inputValue) {
+                          if (inputValue!.isEmpty) {
+                            return 'This field cannot be empty!';
+                          }
+                          chechker1 = true;
+                          return null;
+                        },
                         cursorColor: returnColor(_currentColorIndex),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
@@ -318,6 +332,14 @@ class _AddNewNoteState extends State {
                         },
                       ),
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.always,
+                        validator: (inputValue) {
+                          if (inputValue!.isEmpty) {
+                            return 'This field cannot be empty!';
+                          }
+                          chechker2 = true;
+                          return null;
+                        },
                         cursorColor: returnColor(_currentColorIndex),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(

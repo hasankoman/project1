@@ -4,12 +4,14 @@ import 'package:flutter_application_1/models/note.dart';
 import 'package:share_plus/share_plus.dart';
 
 class EditNoteView extends StatefulWidget {
+  List copy = [];
   List<Note> notes = [];
   Note note = new Note("content", "title", 0);
   EditNoteView(List<Note> notes, Note note) {
     this.notes = notes;
     this.note = note;
   }
+
   @override
   State<StatefulWidget> createState() {
     return _EditNoteViewState(notes, note);
@@ -17,6 +19,23 @@ class EditNoteView extends StatefulWidget {
 }
 
 class _EditNoteViewState extends State {
+  @override
+  void initState() {
+    super.initState();
+    if (note == null) {
+      titleController.text = '';
+      contentController.text = '';
+    } else {
+      titleController.text = note.title;
+      contentController.text = note.content;
+    }
+  }
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+
+  var checker_1 = false;
+  var checker_2 = false;
   var note = Note.noInfo();
   int _currentColorIndex = 0;
   bool _firstJoin = false;
@@ -288,18 +307,29 @@ class _EditNoteViewState extends State {
               icon: const Icon(Icons.check),
               tooltip: 'Update note',
               onPressed: () {
-                formKey.currentState?.save();
-                note.typeId = _currentColorIndex;
-                if (isDuplicate) {
-                  notes.add(note);
-                  notes.add(note);
+                if (checker_1 && checker_2) {
+                  formKey.currentState?.save();
+                  note.typeId = _currentColorIndex;
+                  note.title = titleController.text;
+                  note.content = contentController.text;
+                  print(note.content);
+                  if (isDuplicate) {
+                    Note copiedNote = Note(
+                      titleController.text,
+                      contentController.text,
+                      _currentColorIndex,
+                    );
+                    notes.add(copiedNote);
+                  }
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Your note successfully updated.')));
+                  Timer(const Duration(milliseconds: 750),
+                      () => Navigator.pop(context));
                 } else {
-                  notes.add(note);
+                  print(note.content);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Your note could not be edited.')));
                 }
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Your note successfully updated.')));
-                Timer(const Duration(milliseconds: 750),
-                    () => Navigator.pop(context));
               },
             ),
           ],
@@ -314,7 +344,16 @@ class _EditNoteViewState extends State {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        initialValue: note.title,
+                        autovalidateMode: AutovalidateMode.always,
+                        controller: titleController,
+                        validator: (inputValue) {
+                          if (inputValue!.isEmpty) {
+                            checker_1 = false;
+                            return 'This field cannot be empty!';
+                          }
+                          checker_1 = true;
+                          return null;
+                        },
                         cursorColor: returnColor(_currentColorIndex),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
@@ -334,12 +373,18 @@ class _EditNoteViewState extends State {
                           labelText: "Title of Note",
                           hintText: "Title",
                         ),
-                        onSaved: (inputValue) {
-                          note.title = inputValue!;
-                        },
                       ),
                       TextFormField(
-                        initialValue: note.content,
+                        controller: contentController,
+                        autovalidateMode: AutovalidateMode.always,
+                        validator: (inputValue) {
+                          if (inputValue!.isEmpty) {
+                            checker_2 = false;
+                            return 'This field cannot be empty!';
+                          }
+                          checker_2 = true;
+                          return null;
+                        },
                         cursorColor: returnColor(_currentColorIndex),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
@@ -359,9 +404,6 @@ class _EditNoteViewState extends State {
                           labelText: "Content of Note",
                           hintText: "Content",
                         ),
-                        onSaved: (inputValue) {
-                          note.content = inputValue!;
-                        },
                       )
                     ],
                   )),
