@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/note.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EditNoteView extends StatefulWidget {
   List<Note> notes = [];
@@ -117,7 +118,9 @@ class _EditNoteViewState extends State {
                                       ),
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Share.share(note.content);
+                                  },
                                 ),
                               ),
                               Container(
@@ -160,8 +163,9 @@ class _EditNoteViewState extends State {
                                   onPressed: () {
                                     formKey.currentState?.save();
                                     setState(() {
-                                      notes.removeWhere(
-                                          (item) => item.id == note.id);
+                                      // notes.removeWhere(
+                                      //     (item) => item.id == note.id);
+                                      notes.remove(note);
                                     });
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(

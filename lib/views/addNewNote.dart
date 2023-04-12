@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/NoteView.dart';
 import 'package:flutter_application_1/models/note.dart';
@@ -111,7 +111,9 @@ class _AddNewNoteState extends State {
                                       ),
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Share.share(note.content);
+                                  },
                                 ),
                               ),
                               Container(
@@ -272,6 +274,7 @@ class _AddNewNoteState extends State {
                   notes.add(note);
                 } else {
                   notes.add(note);
+                  print(note.content);
                 }
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Your note successfully added.')));
@@ -336,6 +339,9 @@ class _AddNewNoteState extends State {
                         ),
                         onSaved: (inputValue) {
                           note.content = inputValue!;
+                        },
+                        onChanged: (input) {
+                          note.content = input;
                         },
                       )
                     ],
