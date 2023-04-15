@@ -24,7 +24,6 @@ class MyButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border(
                     left: BorderSide(
-                      //                   <--- left side
                       color: Colors.black,
                       width: 3.0,
                     ),

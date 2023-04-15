@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-// import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/NoteView.dart';
 import 'package:flutter_application_1/models/note.dart';
@@ -83,8 +83,7 @@ class _AddNewNoteState extends State {
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.0),
-                                      minimumSize:
-                                          const Size.fromHeight(100), // NEW
+                                      minimumSize: const Size.fromHeight(100),
                                       shape: BeveledRectangleBorder()),
                                   child: Row(
                                     children: [
@@ -115,7 +114,7 @@ class _AddNewNoteState extends State {
                                     ],
                                   ),
                                   onPressed: () {
-                                    // Share.share(note.content);
+                                    Share.share(note.content);
                                   },
                                 ),
                               ),
@@ -125,8 +124,7 @@ class _AddNewNoteState extends State {
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.0),
-                                      minimumSize:
-                                          const Size.fromHeight(100), // NEW
+                                      minimumSize: const Size.fromHeight(100),
                                       shape: BeveledRectangleBorder()),
                                   child: Row(
                                     children: [
@@ -164,13 +162,11 @@ class _AddNewNoteState extends State {
                               ),
                               Container(
                                 height: 75,
-                                // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                 child: TextButton(
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.0),
-                                      minimumSize:
-                                          const Size.fromHeight(100), // NEW
+                                      minimumSize: const Size.fromHeight(100),
                                       shape: BeveledRectangleBorder()),
                                   child: Row(
                                     children: [
@@ -221,8 +217,7 @@ class _AddNewNoteState extends State {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                         height: 50,
-                                        width:
-                                            100, // adjust the width as per your requirement
+                                        width: 100,
                                         color: Colors.transparent,
                                         child: Center(
                                             child: Container(
@@ -235,7 +230,6 @@ class _AddNewNoteState extends State {
                                           ),
                                           child: InkWell(
                                             onTap: () {
-                                              // add your onTap logic here
                                               _setColorIndex(index);
                                               Navigator.pop(context);
                                             },
@@ -317,13 +311,13 @@ class _AddNewNoteState extends State {
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              width: 1, //<-- SEE HERE
+                              width: 1,
                               color: returnColor(_currentColorIndex),
                             ),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              width: 2, //<-- SEE HERE
+                              width: 2,
                               color: returnColor(_currentColorIndex),
                             ),
                           ),
@@ -349,13 +343,13 @@ class _AddNewNoteState extends State {
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              width: 1, //<-- SEE HERE
+                              width: 1,
                               color: returnColor(_currentColorIndex),
                             ),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              width: 2, //<-- SEE HERE
+                              width: 2,
                               color: returnColor(_currentColorIndex),
                             ),
                           ),

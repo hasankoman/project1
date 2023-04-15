@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/note.dart';
-// import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EditNoteView extends StatefulWidget {
   List copy = [];
@@ -107,8 +107,7 @@ class _EditNoteViewState extends State {
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.0),
-                                      minimumSize:
-                                          const Size.fromHeight(100), // NEW
+                                      minimumSize: const Size.fromHeight(100),
                                       shape: BeveledRectangleBorder()),
                                   child: Row(
                                     children: [
@@ -139,7 +138,7 @@ class _EditNoteViewState extends State {
                                     ],
                                   ),
                                   onPressed: () {
-                                    // Share.share(note.content);
+                                    Share.share(note.content);
                                   },
                                 ),
                               ),
@@ -149,8 +148,7 @@ class _EditNoteViewState extends State {
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.0),
-                                      minimumSize:
-                                          const Size.fromHeight(100), // NEW
+                                      minimumSize: const Size.fromHeight(100),
                                       shape: BeveledRectangleBorder()),
                                   child: Row(
                                     children: [
@@ -201,13 +199,11 @@ class _EditNoteViewState extends State {
                               ),
                               Container(
                                 height: 75,
-                                // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                 child: TextButton(
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.0),
-                                      minimumSize:
-                                          const Size.fromHeight(100), // NEW
+                                      minimumSize: const Size.fromHeight(100),
                                       shape: BeveledRectangleBorder()),
                                   child: Row(
                                     children: [
@@ -258,8 +254,7 @@ class _EditNoteViewState extends State {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                         height: 50,
-                                        width:
-                                            100, // adjust the width as per your requirement
+                                        width: 100,
                                         color: Colors.transparent,
                                         child: Center(
                                             child: Container(
@@ -272,7 +267,6 @@ class _EditNoteViewState extends State {
                                           ),
                                           child: InkWell(
                                             onTap: () {
-                                              // add your onTap logic here
                                               _setColorIndex(index);
                                               Navigator.pop(context);
                                             },

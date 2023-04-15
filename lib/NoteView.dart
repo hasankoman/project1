@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/note.dart';
 import 'package:flutter_application_1/views/addNewNote.dart';
@@ -35,7 +33,6 @@ class _NoteViewState extends State<NoteView> {
           backgroundColor: Colors.grey[100],
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // Add your onPressed code here!
               Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -74,9 +71,6 @@ class _NoteViewState extends State<NoteView> {
     if (n.length > 0) {
       return CustomScrollView(
         slivers: <Widget>[
-          // SliverAppBar(
-          //   title: Text("Sliver App Bar"),
-          // ),
           SliverList(
             delegate: SliverChildBuilderDelegate((context, index) {
               Note note = n[index];
@@ -88,11 +82,10 @@ class _NoteViewState extends State<NoteView> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1), // shadow color
-                      spreadRadius: 1, // how wide the shadow is
-                      blurRadius: 5, // how spread out the shadow is
-                      offset: Offset(
-                          0, 3), // offset of the shadow from the container
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
                     ),
                   ],
                 ),
@@ -106,7 +99,6 @@ class _NoteViewState extends State<NoteView> {
                   )),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add button click logic here
                       Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -128,7 +120,6 @@ class _NoteViewState extends State<NoteView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           note.title,
